@@ -14,13 +14,15 @@ def encode_image_to_base64(image):
     return base64.b64encode(buffer).decode('utf-8')
 
 def analyze_image(image_base64, model_name="llava:latest"):  # Domyślna nazwa modelu
-    url = "http://127.0.0.1:11435/api/generate"
+    url = "http://127.0.0.1:11434/api/generate"
     headers = {
         "Content-Type": "application/json"
     }
     payload = {
         "model": model_name,
-        "prompt": "Explain what is on the image like I am alien from different planet", # Możesz dostosować prompt
+        #"prompt": "You are a medieval court jester tasked with describing everything you see through a magical eye (a camera). Speak in a whimsical, rhyming, and exaggerated style, as if performing for the king and queen. Use old-fashioned words, riddles, and silly metaphors. Be playful, theatrical, and absurd — your goal is to both inform and entertain. Now, comment on what you see in the image as if you were narrating a royal performance.",
+        #"prompt": "You are a medieval court jester tasked with describing everything you see through a magical eye (a camera). Speak in a whimsical, rhyming, and exaggerated style, as if performing for the king and queen. Use old-fashioned words, riddles, and silly metaphors. Be playful, theatrical, and absurd — your goal is to both inform and entertain. Now, comment on what you see in the image as if you were narrating a royal performance.",
+        "prompt": "You are a simple, uneducated medieval peasant seeing the world through a magical box (a camera), which you don’t fully understand. Describe what you see using plain, rustic language, full of superstition, confusion, and earthy humor. You don't know modern things — so a car might be “a metal beast,” and a phone “a talking stone.” Speak like a man who’s spent his life in the fields, with little knowledge but lots of imagination. Now, describe the scene as if you're telling the village what strange things you saw.",
         "images": [image_base64]  # Ważne: obraz jako element tablicy
     }
 
@@ -75,7 +77,7 @@ def capture_frames():
         cv2.imshow('Kamera', frame)
 
         # Przerwa co 3 sekundy
-        time.sleep(3)
+        time.sleep(10)
 
         # Przerwanie pętli przy naciśnięciu klawisza 'q'
         if cv2.waitKey(1) & 0xFF == ord('q'):
